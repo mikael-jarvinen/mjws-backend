@@ -6,7 +6,7 @@ type Query {
   login(
     username: String!
     password: String!
-  ): String
+  ): String!
   whoami: User
   content: String!
 }

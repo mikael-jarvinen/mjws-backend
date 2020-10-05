@@ -2,18 +2,18 @@ const users = require('../users.json')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { JWT_SECRET } = require('./settings')
+const { AuthenticationError } = require('apollo-server-express')
 
 const login = async (username, password) => {
-  let token = ''
-  users.forEach(user => {
+  for (const user of users) {
     if (user.username === username) {
-      const result = bcrypt.compare(password, user.password)
+      const result = await bcrypt.compare(password, user.password)
       if (result) {
-        token = jwt.sign(user.id, JWT_SECRET)
+        return jwt.sign(user.id, JWT_SECRET)
       }
     }
-  })
-  return token
+  }
+  throw new AuthenticationError('Wrong password or username')
 }
 
 const getUser = async (token) => {
