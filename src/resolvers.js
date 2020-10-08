@@ -1,6 +1,7 @@
 const Login = require('./auth').login
 const { AuthenticationError } = require('apollo-server-express')
 const { getContent, newContent } = require('./contentService')
+const { receiveEmail, sendEmailReceived } = require('./emailService')
 
 module.exports = {
   Query: {
@@ -17,6 +18,11 @@ module.exports = {
       } else {
         throw new AuthenticationError('you must be logged in')
       }
+    },
+    contact: async (root, { email, name, message }) => {
+      await receiveEmail(email, name, message)
+      await sendEmailReceived(email)
+      return 'success'
     }
   }
 }

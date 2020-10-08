@@ -3,3 +3,4 @@ users.json
 .env
 .eslintrc.json
 content-strings.json
+email-config.js

@@ -20,5 +20,10 @@ type Mutation {
   newContent(
     content: String!
   ): String!
+  contact(
+    email: String!
+    name: String!,
+    message: String!
+  ): String!
 }
 `

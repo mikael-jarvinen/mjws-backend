@@ -6,14 +6,18 @@ const getContent = () => {
 }
 
 const newContent = data => {
-  const stringContent = JSON.stringify(data)
+  const stringContent = JSON.stringify(
+    {
+      content: data
+    }
+  )
 
-  fs.writeFile('../content-strings.json', stringContent, (err) => {
+  fs.writeFile('./content-strings.json', stringContent, (err) => {
     if (err) {
       console.log(`Couldn't write new content to file: ${err}`)
       throw new Error('Couldn\'t write new content to file')
     } else {
-      content = { content: 'data' }
+      content = { content: data }
     }
   })
 
